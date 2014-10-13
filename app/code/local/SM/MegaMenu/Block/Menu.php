@@ -1,8 +1,8 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: gatre
- * Date: 10/10/14
+ * User: tronghuan
+ * Date: 10/12/14
  * Time: 8:46 AM
  */
 class SM_MegaMenu_Block_Menu extends Mage_Core_Block_Template{
