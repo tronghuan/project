@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: tronghuan
- * Date: 10/12/14
- * Time: 3:52 PM
+ * User: gatre
+ * Date: 10/10/14
+ * Time: 8:46 AM
  */
 class SM_MegaMenu_Block_Menu extends Mage_Core_Block_Template{
     public function getChildMenu(){
@@ -45,25 +45,25 @@ class SM_MegaMenu_Block_Menu extends Mage_Core_Block_Template{
                 }
             }
             foreach ($menuData['parent'][$parent] as $value) {
+                $cateUrl = Mage::getModel("catalog/category")->load($menuData['menu'][$value]['cate_id'])->getUrl();
                 $html .= "<li>";
                 if($menuData['menu'][$value]['menu_type']==2&&$menuData['menu'][$value]['parent_id']!=0){
-                    $html .= "<i class='fa fa-angle-right'></i><a href='".$menuData['menu'][$value]['custom_link']."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
+                    $html .= "<i class='fa fa-angle-right'></i><a href='".$cateUrl."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
                     $html .= $this->getTreeCategories($menuData['menu'][$value]['cate_id']);
                 }
                 else if($menuData['menu'][$value]['menu_type']==2&&$menuData['menu'][$value]['parent_id']==0){
-                    $html .= "<a href='".$menuData['menu'][$value]['custom_link']."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
+                    $html .= "<a href='".$cateUrl."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
                     $html .= "<ul class='submenu one_col'>";
                     $html .= $this->getMenu($value, false);
-                    $html .= "<li>";
-                    $html .= $this->getTreeCategories($menuData['menu'][$value]['cate_id']);
-                    $html .= "</li>";
+                    $html .= $this->getTreeCategories($menuData['menu'][$value]['cate_id'], true);
                     $html .= "</ul>";
                 }
                 else if($menuData['menu'][$value]['menu_type']==3){
                     if($this->isHaveChild($menuData['menu'][$value]['menu_id'], $menuData['menu']) && $menuData['menu'][$value]['parent_id']!=0){
                         $html.="<i class='fa fa-angle-right'></i>";
                     }
-                    $html .= "<a href='".$menuData['menu'][$value]['custom_link']."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
+                    $html .= $this->getBlockLink($menuData['menu'][$value]['block_link']);
+                    //$html .= "<a href='".$menuData['menu'][$value]['custom_link']."'>" . $menuData['menu'][$value]['menu_name'] . "</a>";
                     $html .= $this->getMenu($value);
                 }
                 else{
@@ -87,42 +87,38 @@ class SM_MegaMenu_Block_Menu extends Mage_Core_Block_Template{
     }
 
 
-    protected function getTreeCategories($parentId=1/*, $isChild=false*/){
+    protected function getTreeCategories($parentId=1, $inRootMenu=false){
         $html="";
-        $allCats = Mage::getModel('catalog/category')->getCollection()
+        $catModel = Mage::getModel('catalog/category');
+        $allCats = $catModel->getCollection()
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('is_active','1')
             ->addAttributeToFilter('include_in_menu','1')
-            ->addAttributeToFilter('parent_id',array('eq' => $parentId))
+            ->addAttributeToFilter('parent_id',array('pi' => $parentId))
             ->addAttributeToSort('position', 'asc');
         //$class = ($isChild) ? "sub-cat-list" : "cat-list";
-        $html .= '<ul class="submenu one_col">';
+        $catsChild = $catModel->load($parentId)->getChildrenCount();
+        $html .= ($catsChild>0&&!$inRootMenu) ? '<i class="fa fa-angle-right"></i><ul class="submenu one_col">':'';
         foreach($allCats as $category)
         {
-            $html .= '<li><a href="#">'.$category->getName()."</a>";
+            $html .= '<li><a href="'.$category->getUrl().'">'.$category->getName()."</a>";
             $subcats = $category->getChildren();
             if($subcats != ''){
                 $html .= "<i class='fa fa-angle-right'></i>".$this->getTreeCategories($category->getId()/*, true*/);
             }
             $html .= '</li>';
         }
-        $html .= '</ul>';
+        $html .= ($catsChild>0&&!$inRootMenu) ? '</ul>':'';
         return $html;
     }
 
-    function getStaticBlockContent($id){
-
-    }
-
-    public function getAllBlock(){
-        $blockList = Mage::getModel('megamenu/source_cms_block')->getAllBlock();
-        echo "<pre>";
-        print_r($blockList);
-    }
-
-    public function getDataMenu(){
-        $test = $this->getChildMenu();
-        echo "<pre>";
-        print_r($test);die;
+    public function getBlockLink($blockId)
+    {
+        $html ="";
+        $html .= "<a>Content</a>";
+        $html .="<div>";
+        $html .= $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
+        $html .="</div>";
+        return $html;
     }
 }
