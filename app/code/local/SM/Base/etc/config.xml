@@ -2,14 +2,14 @@
 <config>
     <modules>
         <SM_Base>
-            <version>1.0.0</version>
+            <version>0.1.0</version>
         </SM_Base>
     </modules>
     <frontend>
         <layout>
             <updates>
                 <sm_base>
-                    <file>sm_base.xml</file>
+                    <file>sm/sm_base.xml</file>
                 </sm_base>
             </updates>
         </layout>
