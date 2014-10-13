@@ -9,7 +9,7 @@
         <layout>
             <updates>
                 <sm_base>
-                    <file>sm/sm_base.xml</file>
+                    <file>sm/base.xml</file>
                 </sm_base>
             </updates>
         </layout>
