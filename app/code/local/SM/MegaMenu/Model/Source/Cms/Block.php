@@ -14,12 +14,9 @@ class SM_MegaMenu_Model_Source_Cms_Block
 
         if(!$this->_options){
             $this->_options = Mage::getResourceModel('cms/block_collection')
-            ->addFieldToFilter('block_id', 35)->getData();
-//                ->load()
-//                ->toOptionArray();
-
+                ->load()
+                ->toOptionArray();
         }
-
         return $this->_options;
     }
 }
