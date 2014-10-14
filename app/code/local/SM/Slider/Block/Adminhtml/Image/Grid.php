@@ -6,10 +6,10 @@ class SM_Slider_Block_Adminhtml_Image_Grid
     public function __construct()
     {
         parent::__construct();
-        $this->setId('megamenu_grid');
+        $this->setId('sliderGrid');
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('asc');
-        $this->setSaveParametersInSession(false);
+        $this->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()

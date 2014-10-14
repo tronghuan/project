@@ -6,7 +6,7 @@ $installer->getConnection()
     ->dropTable($installer->getTable('sm_slider/sm_slider'));
 
 $installer->getConnection()
-    ->dropTable($installer->getTable('sm_slider/sm_slider_image'));
+    ->dropTable($installer->getTable('sm_slider/image'));
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('sm_slider/sm_slider'))
@@ -33,7 +33,7 @@ $installer->getConnection()->createTable($table);
 
 
 $tableImage = $installer->getConnection()
-    ->newTable($installer->getTable('sm_slider/sm_slider_image'))
+    ->newTable($installer->getTable('sm_slider/image'))
     ->addColumn(
         'entity_id',
         Varien_Db_Ddl_Table::TYPE_INTEGER,

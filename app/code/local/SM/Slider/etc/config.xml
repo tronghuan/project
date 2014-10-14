@@ -36,9 +36,9 @@
                     <sm_slider>
                         <table>sm_slider</table>
                     </sm_slider>
-                    <sm_slider_image>
+                    <image>
                         <table>sm_slider_image</table>
-                    </sm_slider_image>
+                    </image>
                 </entities>
             </sm_slider_resource>
         </models>
@@ -62,13 +62,13 @@
     </default>
     <admin>
         <routers>
-            <!-- <sm_slider>
+            <sm_slider>
                 <use>admin</use>
                 <args>
                     <module>SM_Slider</module>
                     <frontName>smslider</frontName>
                 </args>
-            </sm_slider> -->
+            </sm_slider>
             <!-- http://magento.sample/index.php/admin/adminhtml_index/index -->
             <adminhtml>
                 <args>

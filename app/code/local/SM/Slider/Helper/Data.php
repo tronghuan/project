@@ -7,5 +7,3 @@ class SM_Slider_Helper_Data
 {
 
 }
-
- ?>

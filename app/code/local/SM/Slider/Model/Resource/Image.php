@@ -8,7 +8,7 @@ class SM_Slider_Model_Resource_Image
 
     protected function _construct()
     {
-        $this->_init('sm_slider/sm_slider_image', 'entity_id');
+        $this->_init('sm_slider/image', 'entity_id');
     }
 }
  ?>

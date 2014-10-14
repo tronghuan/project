@@ -8,7 +8,7 @@ class SM_Slider_Block_Adminhtml_Image_Edit_Tabs
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setId('slider_edit_tabs');
+		$this->setId('slider_edit_tab');
 		$this->setDestElementId('edit_form');
 		$this->setTitle(Mage::helper('sm_slider')->__('Form Tabs'));
 	}
@@ -20,7 +20,7 @@ class SM_Slider_Block_Adminhtml_Image_Edit_Tabs
 			'title' => Mage::helper('sm_slider')->__('General'),
 			'content' =>
 				$this->getLayout()
-					->createBlock('sm_slider/adminhtml_image_edit_tab_form')
+					->createBlock('slider/adminhtml_image_edit_tab_form')
 					->toHtml()
 			));
 		return parent::_beforeToHtml();

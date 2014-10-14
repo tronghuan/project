@@ -40,10 +40,23 @@ class SM_Slider_Adminhtml_Sm_Slider_ImageController
                 $this->_redirect('*/*/');
             }
         }
+
         Mage::register('image_data', $model);
-        $this->_title($this->__('Slider'))
-            ->_title($this->__('Edit slider'));
-        $this->loadLayout();
+//        $this->_title($this->__('Slider'))
+//            ->_title($this->__('Edit slider'));
+//        $this->loadLayout();
+//        $this->renderLayout();
+        $this   ->loadLayout();
+        $this->_setActiveMenu('sm_base');
+
+        $this   ->_addBreadcrumb(Mage::helper('adminhtml')->__('Slider Manager'), Mage::helper('adminhtml')->__('Slider Manager'));
+        $this   ->_addBreadcrumb(Mage::helper('adminhtml')->__('Slider Manager'), Mage::helper('adminhtml')->__('Slider Manager'));
+
+        $this   ->getLayout()->getBlock('head')->setCanLoadExtJs(true);
+
+        $this   ->_addContent($this->getLayout()->createBlock('sm_slider/adminhtml_image_edit'))
+            ->_addLeft($this->getLayout()->createBlock('sm_slider/adminhtml_image_edit_tabs'));
+
         $this->renderLayout();
     }
     public function saveAction()
